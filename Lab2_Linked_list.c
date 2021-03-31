@@ -88,6 +88,17 @@ node* poly_sub(node* head,node* head1,node* head2){
     }
     return head;
 }
+//function to free the allocated memory 
+void mem_free(node *head){
+    node *temp = head;
+    node *prev = NULL;
+    while(temp->next!=NULL){
+        prev = temp->next;
+        free(temp);
+        temp = prev;
+    
+    }free(prev);
+}
 //fiunction to print the element
 void display(node *head){
     node* temp = head;
@@ -140,22 +151,20 @@ int value(node* head, int x){
 }
 int main(){
     int k=0,coff=0,high=0,high2=0,val_x=0;
-    node* head1 = NULL;
-    node* head2 = NULL;
-    node* head3 = NULL;
-    node* head4 = NULL;
     scanf("%d",&k);
     for(int i=0;i<k;i++){
+        node* head1 = NULL;
+        node* head2 = NULL;
+        node* head3 = NULL;
+        node* head4 = NULL;
         scanf("%d",&high);
         for(int i = high;i>=0;i--){
             scanf("%d",&coff);
-            if (coff == 0){continue;}
             head1 = insert_at_last(head1,i,coff);
         }
         scanf("%d",&high2);
         for(int i = high2;i>=0;i--){
             scanf("%d",&coff);
-            if (coff == 0){continue;}
             head2 = insert_at_last(head2,i,coff);
         }
         scanf("%d",&val_x);
@@ -173,6 +182,11 @@ int main(){
         printf("P2(%d) = %d\n",val_x,value(head2,val_x));
         printf("P3(%d) = %d\n",val_x,value(head3,val_x));
         printf("P4(%d) = %d\n",val_x,value(head4,val_x));
+        mem_free(head1);
+        mem_free(head2);
+        mem_free(head3);
+        mem_free(head4);
+
 }
 return  0;
 }
